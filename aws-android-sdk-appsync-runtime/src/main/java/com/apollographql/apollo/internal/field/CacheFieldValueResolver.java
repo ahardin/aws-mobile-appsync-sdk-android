@@ -120,7 +120,7 @@ public final class CacheFieldValueResolver implements FieldValueResolver<Record>
 
   @SuppressWarnings("unchecked") private <T> T fieldValue(Record record, ResponseField field) {
     String fieldKey = cacheKeyBuilder.build(field, variables);
-    if (!record.hasField(fieldKey)) {
+    if (!record.hasField(fieldKey) && !field.optional()) {
       throw new NullPointerException("Missing value: " + field.fieldName());
     }
     return (T) record.field(fieldKey);
